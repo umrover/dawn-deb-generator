@@ -1,0 +1,52 @@
+cmake_minimum_required(VERSION 3.16)
+project(dawn VERSION 6536 LANGUAGES CXX)
+
+set(BUILD_SHARED_LIBS OFF)
+
+SET(DAWN_FETCH_DEPENDENCIES ON)
+SET(DAWN_ENABLE_DESKTOP_GL OFF)
+SET(DAWN_ENABLE_OPENGLES OFF)
+SET(DAWN_ENABLE_NULL OFF)
+SET(DAWN_BUILD_SAMPLES OFF)
+SET(DAWN_USE_GLFW OFF)
+
+SET(TINT_BUILD_DOCS OFF)
+SET(TINT_BUILD_TESTS OFF)
+SET(TINT_BUILD_CMD_TOOLS OFF)
+SET(TINT_BUILD_DOCS OFF)
+SET(TINT_BUILD_TESTS OFF)
+
+add_subdirectory(dawn)
+
+install(
+        TARGETS
+        webgpu_dawn
+        EXPORT
+        dawn
+        RUNTIME DESTINATION
+        ${CMAKE_INSTALL_BINDIR}
+        LIBRARY DESTINATION
+        ${CMAKE_INSTALL_LIBDIR}
+        ARCHIVE DESTINATION
+        ${CMAKE_INSTALL_LIBDIR}
+        INCLUDES DESTINATION
+        ${CMAKE_INSTALL_INCLUDEDIR}
+)
+install(
+        DIRECTORY
+        build/dawn/gen/include/dawn
+        dawn/include/webgpu
+        DESTINATION
+        ${CMAKE_INSTALL_INCLUDEDIR}
+)
+install(
+        FILES
+        dawnConfig.cmake
+        DESTINATION
+        share/dawn/cmake
+)
+
+SET(CPACK_GENERATOR "DEB")
+SET(CPACK_DEBIAN_PACKAGE_MAINTAINER "rover-software-team@umich.edu")
+SET(CPACK_DEBIAN_PACKAGE_DEPENDS "libx11-xcb-dev")
+INCLUDE(CPack)

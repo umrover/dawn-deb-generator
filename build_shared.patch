@@ -1,0 +1,13 @@
+diff --git a/src/dawn/native/CMakeLists.txt b/src/dawn/native/CMakeLists.txt
+index ec833eb3c9..170a80acc7 100644
+--- a/src/dawn/native/CMakeLists.txt
++++ b/src/dawn/native/CMakeLists.txt
+@@ -777,7 +777,7 @@ DawnJSONGenerator(
+ # applications link against it and have WebGPU work without jumping through more hoops.
+ # Note that this library name is referenced in several places, search for it and things like:
+ # "{{.*}}_dawn" when you rename it.
+-add_library(webgpu_dawn)
++add_library(webgpu_dawn SHARED)
+ common_compile_options(webgpu_dawn)
+ target_link_libraries(webgpu_dawn
+     PRIVATE dawn_native
